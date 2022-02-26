@@ -33,7 +33,9 @@ describe("Pizza test, sprint 3 challenge", () => {
     const orderPizza = document.querySelector('#order-pizza')
     expect(orderPizza).toBeInTheDocument();
     fireEvent.click(orderPizza)
-    expect(history.location.pathname).toBe('/pizza')
+    setTimeout(() => {
+      expect(history.location.pathname).toBe('/pizza')
+    }, 0);
   });
 
   it('The "/pizza" route has a form with #pizza-form', () => {
@@ -51,8 +53,10 @@ describe("Pizza test, sprint 3 challenge", () => {
       </MemoryRouter>
     );
     expect(testLocation.pathname).toBe('/pizza')
-    const pizzaForm = document.querySelector('#pizza-form')
-    expect(pizzaForm).toBeInTheDocument()
+    setTimeout(() => {
+      const pizzaForm = document.querySelector('#pizza-form')
+      expect(pizzaForm).toBeInTheDocument()  
+    }, 0);
   });
 
   it('Form has name text input with #name-input', () => {
@@ -70,8 +74,10 @@ describe("Pizza test, sprint 3 challenge", () => {
       </MemoryRouter>
     );
     expect(testLocation.pathname).toBe('/pizza')
-    const nameInput = document.querySelector('#name-input')
-    expect(nameInput).toBeInTheDocument()
+    setTimeout(() => {
+      const nameInput = document.querySelector('#name-input')
+      expect(nameInput).toBeInTheDocument()  
+    }, 0)
   });
 
   it('Form has validation for #name-input with error message "name must be at least 2 characters"', async () => {
@@ -89,15 +95,18 @@ describe("Pizza test, sprint 3 challenge", () => {
       </MemoryRouter>
     );
     expect(testLocation.pathname).toBe('/pizza')
-    const nameInput = document.querySelector('#name-input')
-    expect(nameInput).toBeInTheDocument()
-    fireEvent.input(nameInput, {
-      target: {value: 'a'}
-    })
-    await waitFor(() => {
-      expect(screen.getByText('name must be at least 2 characters')).toBeInTheDocument()
-    })
-    nameInput.value = ''
+    setTimeout(async () => {
+      const nameInput = document.querySelector('#name-input')
+      expect(nameInput).toBeInTheDocument()
+      fireEvent.input(nameInput, {
+        target: {value: 'a'}
+      })
+      await waitFor(() => {
+        expect(screen.getByText('name must be at least 2 characters')).toBeInTheDocument()
+      })
+      nameInput.value = ''
+    }, 0)
+
   });
 
   it('Form has pizza size dropdown with #size-dropdown', () => {
@@ -115,8 +124,10 @@ describe("Pizza test, sprint 3 challenge", () => {
       </MemoryRouter>
     );
     expect(testLocation.pathname).toBe('/pizza')
-    const sizeDropdown = document.querySelector('#size-dropdown')
-    expect(sizeDropdown).toBeInTheDocument()
+    setTimeout(() => {
+      const sizeDropdown = document.querySelector('#size-dropdown')
+      expect(sizeDropdown).toBeInTheDocument()  
+    }, 0)
   });
 
   it('Form has toppings checklist with at least 4 options', () => {
@@ -134,8 +145,11 @@ describe("Pizza test, sprint 3 challenge", () => {
       </MemoryRouter>
     );
     expect(testLocation.pathname).toBe('/pizza')
-    const toppingsChecklist = document.querySelectorAll('[type="checkbox"]')
-    expect(toppingsChecklist.length).toBeGreaterThanOrEqual(4)
+    setTimeout(() => {
+      const toppingsChecklist = document.querySelectorAll('[type="checkbox"]')
+      expect(toppingsChecklist.length).toBeGreaterThanOrEqual(4)
+    }, 0)
+    
   });
 
   it('Form has special instructions input with #special-text', () => {
@@ -153,8 +167,10 @@ describe("Pizza test, sprint 3 challenge", () => {
       </MemoryRouter>
     );
     expect(testLocation.pathname).toBe('/pizza')
-    const specialInstructions = document.querySelector('#special-text')
-    expect(specialInstructions).toBeInTheDocument()
+    setTimeout(() => {
+      const specialInstructions = document.querySelector('#special-text')
+      expect(specialInstructions).toBeInTheDocument()
+    }, 0)
   });
 
   it("Fill out #pizza-form, submit #pizza-form with data to https://reqres.in/api/orders", async () => {
@@ -173,8 +189,11 @@ describe("Pizza test, sprint 3 challenge", () => {
     );
 
     expect(testLocation.pathname).toBe('/pizza')
-    const pizzaForm = document.querySelector('#pizza-form')
-    expect(pizzaForm).toBeInTheDocument()
+    setTimeout(() => {
+      const pizzaForm = document.querySelector('#pizza-form')
+      expect(pizzaForm).toBeInTheDocument()
+    })
+    
 
     const nameInput = document.querySelector('#name-input')
     const sizeDropdown = document.querySelector('#size-dropdown')
@@ -205,7 +224,7 @@ describe("Pizza test, sprint 3 challenge", () => {
     toppingsChecklist.forEach(top => {
       testOrder[top.name] = top.checked ? true : false
     })
-
+    
     axios.post.mockImplementationOnce(() =>
       Promise.resolve({testOrder})
     );
