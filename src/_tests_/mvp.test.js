@@ -189,10 +189,9 @@ describe("Pizza test, sprint 3 challenge", () => {
     );
 
     expect(testLocation.pathname).toBe('/pizza')
-    setTimeout(() => {
+    setTimeout(async () => {
       const pizzaForm = document.querySelector('#pizza-form')
       expect(pizzaForm).toBeInTheDocument()
-    })
     
 
     const nameInput = document.querySelector('#name-input')
@@ -231,5 +230,6 @@ describe("Pizza test, sprint 3 challenge", () => {
     const orderButton = document.querySelector('#order-button')
     userEvent.click(orderButton)
     expect(axios.post("https://reqres.in/api/orders", testOrder));
+  }, 0)
   });
 });

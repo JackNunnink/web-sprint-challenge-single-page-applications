@@ -30,7 +30,9 @@ const App = () => {
   const postNewOrder = (newOrder) => {
     axios.post(`https://reqres.in/api/orders`, newOrder)
       .then(res => {
+        console.log('res', res.data);
         setPizza([ res.data, ...pizza ])
+        console.log('Did we get here?')
       }).catch(err => console.error(err))
       .finally(() => setFormValues(initialValues))
   }
@@ -56,6 +58,7 @@ const App = () => {
       toppings: ['pepperoni', 'pineapple', 'sausage', 'mushrooms'].filter(topping => !!formValues[topping]),
       special: event.target.elements.specialText.value
     }
+    console.log('newOrder', newOrder);
     postNewOrder(newOrder);
   }
   
